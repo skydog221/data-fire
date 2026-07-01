@@ -1,0 +1,31 @@
+{
+  "name": "confetti-scratch",
+  "version": "1.0.0",
+  "description": "Spray confetti in Scratch! Unrestricted by the stage, spray all over the web~(在 Scratch 中喷射彩带！不受舞台限制，在整个网页上喷射吧~)",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./src",
+    "lint:type": "tsc --noEmit -p ./tsconfig.json",
+    "fix": "eslint ./src --fix",
+    "dev": "concurrently \"tsup src/withL10n.ts --watch\" \"http-server ./dist -p 8080 --cors\"",
+    "start": "tsup src/withL10n.ts && http-server ./dist -p 8080 --cors",
+    "build": "tsup src/withL10n.ts",
+    "build:turbowarp": "tsup src/index.ts && (npx prettier --config turbowarp/.prettierrc --parser acorn < dist/index.global.js) > dist/index.global.formatted.js && rimraf dist/index.global.js",
+    "format": "prettier ./src -c -w",
+    "lint:format": "prettier ./src -c"
+  },
+  "author": "skydog221@Github(多bug的啸天犬@CCW)",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "@turbowarp/types": "git+https://github.com/TurboWarp/types-tw.git#tw",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^8.57.0",
+    "http-server": "^14.1.1",
+    "prettier": "^3.2.5",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.3"
+  }
+}
