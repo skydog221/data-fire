@@ -1,13 +1,14 @@
 {
-  "name": "confetti-scratch",
+  "name": "data-fire",
   "version": "1.0.0",
-  "description": "Spray confetti in Scratch! Unrestricted by the stage, spray all over the web~(在 Scratch 中喷射彩带！不受舞台限制，在整个网页上喷射吧~)",
+  "description": "为 Scratcher 提供玩家数据分析基座的 Scratch 拓展，自动收集会话/时长/回头率，支持自定义上报事件/指标/计数器/分数/漏斗，配套开发者端 dashboard",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ./src",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint \"src/**/*.ts\"",
     "lint:type": "tsc --noEmit -p ./tsconfig.json",
-    "fix": "eslint ./src --fix",
+    "fix": "eslint \"src/**/*.ts\" --fix",
     "dev": "concurrently \"tsup src/withL10n.ts --watch\" \"http-server ./dist -p 8080 --cors\"",
     "start": "tsup src/withL10n.ts && http-server ./dist -p 8080 --cors",
     "build": "tsup src/withL10n.ts",
@@ -23,9 +24,11 @@
     "@typescript-eslint/parser": "^7.4.0",
     "concurrently": "^9.2.1",
     "eslint": "^8.57.0",
+    "happy-dom": "^20.10.6",
     "http-server": "^14.1.1",
     "prettier": "^3.2.5",
     "tsup": "^8.0.2",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.3",
+    "vitest": "^4.1.9"
   }
 }

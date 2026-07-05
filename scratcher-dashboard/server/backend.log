@@ -1,0 +1,160 @@
+INFO:     Started server process [12540]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[store] Redis 不可用，降级运行：Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+INFO:     127.0.0.1:56898 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56944 - "POST /collect HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\middleware\errors.py", line 187, in __call__
+    raise exc
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\middleware\errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\routing.py", line 715, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\routing.py", line 735, in app
+    await route.handle(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\fastapi\routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\fastapi\routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\main.py", line 50, in post_collect
+    return await collect.records(payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\actions\collect.py", line 94, in records
+    await db.eventrecord.create_many(data=data)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\prisma\actions.py", line 262, in create_many
+    resp = await self._client._execute(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\prisma\_base_client.py", line 543, in _execute
+    return await self._engine.query(builder.build(), tx_id=self._tx_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\prisma\engine\_query.py", line 402, in query
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\prisma\engine\_http.py", line 233, in request
+    return self._process_response_data(data=data, response=response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\prisma\engine\_http.py", line 87, in _process_response_data
+    return utils.handle_response_errors(response, errors_data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\prisma\engine\utils.py", line 181, in handle_response_errors
+    raise prisma_errors.DataError(data[0])
+prisma.errors.DataError: Unable to match input value to any allowed input type for the field. Parse errors: [Invalid argument type. `data` should be of any of the following types: `EventRecordCreateManyInput`, Unable to match input value to any allowed input type for the field. Parse errors: [Invalid argument type. `properties` should be of any of the following types: `String`, Invalid argument type. `properties` should be of any of the following types: `Null`]]
+INFO:     127.0.0.1:57820 - "POST /collect HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\middleware\errors.py", line 187, in __call__
+    raise exc
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\middleware\errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\routing.py", line 715, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\routing.py", line 735, in app
+    await route.handle(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\starlette\routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\fastapi\routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\fastapi\routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\main.py", line 50, in post_collect
+    return await collect.records(payload)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\actions\collect.py", line 94, in records
+    await db.eventrecord.create_many(data=data)
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\prisma\actions.py", line 262, in create_many
+    resp = await self._client._execute(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\prisma\_base_client.py", line 543, in _execute
+    return await self._engine.query(builder.build(), tx_id=self._tx_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\prisma\engine\_query.py", line 402, in query
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\prisma\engine\_http.py", line 233, in request
+    return self._process_response_data(data=data, response=response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\prisma\engine\_http.py", line 87, in _process_response_data
+    return utils.handle_response_errors(response, errors_data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\GitRepo\data-fire\scratcher-dashboard\server\.venv\Lib\site-packages\prisma\engine\utils.py", line 181, in handle_response_errors
+    raise prisma_errors.DataError(data[0])
+prisma.errors.DataError: Unable to match input value to any allowed input type for the field. Parse errors: [Invalid argument type. `data` should be of any of the following types: `EventRecordCreateManyInput`, Unable to match input value to any allowed input type for the field. Parse errors: [Invalid argument type. `properties` should be of any of the following types: `String`, Invalid argument type. `properties` should be of any of the following types: `Null`]]
+INFO:     127.0.0.1:56608 - "POST /collect HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50407 - "GET /events/p_db6ab4ea447ebf06 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50408 - "GET /sessions/p_db6ab4ea447ebf06 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50411 - "GET /players/p_db6ab4ea447ebf06 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50414 - "GET /metrics/p_db6ab4ea447ebf06/score_dist?days=365 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50415 - "GET /metrics/p_db6ab4ea447ebf06/funnel?funnel=test&days=365 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50467 - "GET /sessions/p_db6ab4ea447ebf06?days=365 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50470 - "GET /sessions/p_db6ab4ea447ebf06/summary?days=365 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50473 - "GET /players/p_db6ab4ea447ebf06?days=365 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50476 - "GET /players/p_db6ab4ea447ebf06/retention?days=365 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50479 - "GET /events/p_db6ab4ea447ebf06/timeline?days=365 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50482 - "GET /events/p_db6ab4ea447ebf06/top?days=365 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50485 - "GET /metrics/p_db6ab4ea447ebf06/series?name=x&days=365 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50488 - "GET /metrics/p_db6ab4ea447ebf06/counters HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50491 - "GET /metrics/p_db6ab4ea447ebf06/scores?days=365 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50494 - "GET /metrics/p_db6ab4ea447ebf06/funnel?funnel=test&days=365 HTTP/1.1" 200 OK

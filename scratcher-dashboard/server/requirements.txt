@@ -1,0 +1,7 @@
+# data-fire 开发者端后端依赖
+# 用 prisma-client-py 作为 ORM（CLAUDE.md 规定 Prisma），redis 做缓存与分布式锁，fastapi 做 HTTP 入口
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+prisma==0.15.0
+redis==5.2.1
+pydantic==2.10.4

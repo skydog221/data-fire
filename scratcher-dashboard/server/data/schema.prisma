@@ -1,0 +1,36 @@
+// data-fire 开发者端后端数据结构定义
+// 设计思想：所有上报数据统一落一张 EventRecord 宽表，按 category 区分会话/事件/指标/计数器/分数/漏斗。
+// 这样后端只有一张业务表，所有分析都从这张表出，符合 HOP"数据集中可见"的要求。
+// 配套 store.py 暴露 Prisma 客户端单例，actions 各文件 import 它来读写。
+
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  // 用户指定使用远程 PostgreSQL。CLAUDE.md 原写 mysql，但用户配置为 PG。
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 所有上报记录的统一宽表。扩展端每条 EventRecord 对应这里一行。
+model EventRecord {
+  id         BigInt   @id @default(autoincrement())
+  projectId  String   // 作品 id，决定数据归属哪个 dashboard
+  sessionId  String   // 会话 id，一次游玩一个
+  userUuid   String   // 玩家身份
+  name       String   // 事件/指标/计数器名
+  category   String   // session | event | metric | counter | score | funnel
+  value      Float?   // 数值载荷，无则 null
+  properties String?  // JSON 字符串，自定义扩展字段
+  ts         BigInt   // 毫秒时间戳（扩展端生成）
+  createdAt  DateTime @default(now())
+
+  // 按 projectId 查是这个 dashboard 最高频的操作，所以projectId+ts 建联合索引，
+  // 既支持按作品过滤又支持时间范围扫描，覆盖绝大多数分析查询。
+  @@index([projectId, ts])
+  // 回头率、漏斗等要按 userUuid 聚合，单独给一个索引。
+  @@index([projectId, userUuid])
+  // 指标按 name 聚合折线，给 projectId+name+category 索引。
+  @@index([projectId, category, name, ts])
+}
